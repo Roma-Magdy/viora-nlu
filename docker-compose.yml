@@ -1,0 +1,26 @@
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on: [zookeeper]
+    ports: ["9092:9092"]
+    environment:
+      # FIX: Tells external Windows clients to route to localhost, eliminating the timeout delay
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  # TEMPORARILY DISABLED: We are running this manually in the VS Code terminal for now
+  # viora-logic:
+  #   build: ./services/logic
+  #   volumes:
+  #     - ./services/logic:/app
+  #     - ./shared_data:/shared_data
+  #   environment:
+  #     - FANAR_API_KEY=${FANAR_API_KEY}
+  #     - KAFKA_BROKER=kafka:9092
+  #   depends_on: [kafka]

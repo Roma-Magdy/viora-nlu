@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VIORA Dashboard</title>
+    
+    <script src="{{ url_for('static', filename='js/microsoft.cognitiveservices.speech.sdk.bundle-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/socket.io.js') }}"></script>
+    
+    <style>
+        body { background-color: #121212; color: white; font-family: monospace; display: flex; height: 100vh; margin: 0; }
+        
+        .vision-panel { width: 50%; border-right: 2px solid #333; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .brain-panel { width: 50%; padding: 20px; display: flex; flex-direction: column; }
+        
+        /* CAMERA */
+        .camera-box { width: 80%; height: 60%; background: #222; border: 2px dashed #555; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        #video-feed { width: 100%; height: 100%; object-fit: cover; display: none; }
+        #camera-offline-text { display: block; color: #555; font-size: 20px; }
+        
+        /* CHAT */
+        .log-box { flex-grow: 1; background: #1e1e1e; border: 1px solid #333; padding: 10px; overflow-y: auto; margin-bottom: 20px; }
+        .user-msg { color: #00d4ff; margin-bottom: 5px; }
+        .ai-msg { color: #00ff00; margin-bottom: 15px; }
+        
+        /* CONTROLS */
+        .controls { display: flex; gap: 10px; }
+        button { padding: 15px; border: none; cursor: pointer; font-weight: bold; border-radius: 5px; flex-grow: 1; }
+        #mic-btn { background: #222; border: 2px solid #00d4ff; color: #00d4ff; }
+        #mic-btn.listening { background: #ff0000; color: white; border-color: red; }
+        #cam-btn { background: #222; border: 2px solid #00ff00; color: #00ff00; }
+    </style>
+</head>
+<body>
+
+    <div class="vision-panel">
+        <h2>👁️ VISION FEED</h2>
+        <div class="camera-box">
+            <img id="video-feed" src="">
+            <div id="camera-offline-text">[ CAMERA OFFLINE ]</div>
+        </div>
+        <div style="width: 80%; margin-top: 10px;">
+            <button id="cam-btn" onclick="toggleCamera()">▶ START CAMERA</button>
+        </div>
+    </div>
+
+    <div class="brain-panel">
+        <h2>🧠 NEURAL LOG</h2>
+        <div class="log-box" id="chat-box">
+            <p style="color: #666;">System ready...</p>
+        </div>
+        <div class="controls">
+            <button id="mic-btn" onclick="toggleMic()">🎤 ACTIVATE MIC</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
