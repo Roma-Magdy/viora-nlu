@@ -1,4 +1,4 @@
-# Viora NLU – Test Application & Kafka Architecture
+# Viora NLU – Test Application 
 
 This repository contains the **Viora NLU test application** and the Kafka-based architecture used to support communication between the system's components.
 
